@@ -36,6 +36,7 @@ def run():
                         completeRow = all([boards[b][row][x] == "*" for x in range(len(boards[b][row]))])
                         completeCol = all([boards[b][y][col] == "*" for y in range(len(boards[b]))])
                         if completeRow or completeCol:
+                            print(b)
                             return score(boards[b], number)
     return 0
 
