@@ -1,24 +1,24 @@
 import Reader
 
 
-def solve(line):
-    tag_map = {'(': ')', '[': ']', '<': '>', '{': '}'}
-    tag_scores = {')': 3, ']': 57, '}': 1197, '>': 25137}
-
-    stack = []
-    for char in line:
-        if char in tag_map:
-            stack.append(char)
-        elif not char == tag_map[stack.pop()]:
-            return tag_scores[char]
-    return 0
-
-
 def run():
-    result = 0
+    map = []
     for data in Reader.read("input"):
-        result += solve(data)
-    return result
+        map.append(data)
+
+    total = 0
+    for y in range(len(map)):
+        for x in range(len(map[0])):
+            val = map[y][x]
+            if all([
+                map[y - 1][x] > val if y > 0 else True,
+                map[y + 1][x] > val if y < len(map) - 1 else True,
+                map[y][x - 1] > val if x > 0 else True,
+                map[y][x + 1] > val if x < len(map[0]) - 1  else True
+            ]):
+                total += (1 + int(val))
+
+    return total
 
 
 print(f'Answer: {run()}')
